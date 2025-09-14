@@ -1,9 +1,10 @@
+import { getSortedPostsData } from '../lib/posts'; // Import getSortedPostsData function from lib/posts.js
 import Head from 'next/head'; // Import Head component for metadata
 import Layout, { siteTitle } from '../components/layout'; // Import Layout component and siteTitle
 import utilStyles from '../styles/utils.module.css'; // Import utility CSS styles
 import customStyles from '../styles/CustomHome.module.css'; // Import custom home styles
 
-export default function Home() { // Define and export Home component function
+export default function Home({ allPostsData }) { // Define and export Home component function with allPostsData
   return ( // Return JSX content
     <Layout>
       <Head>
@@ -99,7 +100,33 @@ export default function Home() { // Define and export Home component function
             </a>
           </div>
         </section>
+
+        <section className={customStyles.section}> // Define and export Blog section
+          <h2 className={customStyles.sectionTitle}>Blog</h2>
+          <ul> // Define and export Blog section
+            {allPostsData.map(({ id, date, title }) => (
+              <li key={id}>
+                <strong>{title}</strong>
+                <br />
+                <small>{id}</small>
+                <br />
+                <small>{date}</small>
+              </li>
+            ))}
+          </ul>
+        </section>
+
       </div>
     </Layout>
   ); // End return statement
 } // End component function
+
+// Export getStaticProps function to get static props
+export async function getStaticProps() { // Define and export getStaticProps function
+  const allPostsData = getSortedPostsData();
+  return { // Return props
+    props: {
+      allPostsData,
+    },
+  }; // Return props
+} // End getStaticProps function
