@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import Date from '../components/date';
+import Link from 'next/link'; // Import Link component for navigation
+import Date from '../components/date'; // Import Date component
 import { getSortedPostsData } from '../lib/posts'; // Import getSortedPostsData function from lib/posts.js
 import Head from 'next/head'; // Import Head component for metadata
 import Layout, { siteTitle } from '../components/layout'; // Import Layout component and siteTitle
@@ -26,8 +26,8 @@ export default function Home({ allPostsData }) { // Define and export Home compo
           </div>
           <h1 className={customStyles.heroTitle}>Estevan Chavira</h1>
           <p className={customStyles.heroSubtitle}>Cybersecurity Student & Web Developer</p>
-          <a href="/posts/first-post" className={customStyles.blogLink}>
-            Read My First Post
+          <a href="#blog" className={customStyles.blogLink}>
+            Read My Blog
           </a>
         </section>
 
@@ -103,8 +103,8 @@ export default function Home({ allPostsData }) { // Define and export Home compo
           </div>
         </section>
 
-        <section className={customStyles.section}>
-          <h2 className={customStyles.sectionTitle}>Blog</h2>
+        <section className={customStyles.section} id="blog">
+          <h2 className={customStyles.sectionTitle}>Blog</h2> 
           <ul>
             {allPostsData.map(({ id, date, title }) => ( // Map through allPostsData array to display each post
               <li className={utilStyles.listItem} key={id}>
@@ -125,10 +125,10 @@ export default function Home({ allPostsData }) { // Define and export Home compo
 
 // Export getStaticProps function to get static props
 export async function getStaticProps() { // Define and export getStaticProps function
-  const allPostsData = getSortedPostsData();
+  const allPostsData = getSortedPostsData(); // Get all posts data
   return { // Return props
     props: {
-      allPostsData,
+      allPostsData, // Return all posts data
     },
   }; // Return props
 } // End getStaticProps function
