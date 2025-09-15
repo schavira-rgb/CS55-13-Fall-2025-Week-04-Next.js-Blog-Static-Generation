@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import Date from '../components/date';
 import { getSortedPostsData } from '../lib/posts'; // Import getSortedPostsData function from lib/posts.js
 import Head from 'next/head'; // Import Head component for metadata
 import Layout, { siteTitle } from '../components/layout'; // Import Layout component and siteTitle
@@ -101,20 +103,20 @@ export default function Home({ allPostsData }) { // Define and export Home compo
           </div>
         </section>
 
-        <section className={customStyles.section}> // Define and export Blog section
+        <section className={customStyles.section}>
           <h2 className={customStyles.sectionTitle}>Blog</h2>
-          <ul> // Define and export Blog section
-            {allPostsData.map(({ id, date, title }) => (
-              <li key={id}>
-                <strong>{title}</strong>
+          <ul>
+            {allPostsData.map(({ id, date, title }) => ( // Map through allPostsData array to display each post
+              <li className={utilStyles.listItem} key={id}>
+                <Link href={`/posts/${id}`}>{title}</Link>
                 <br />
-                <small>{id}</small>
-                <br />
-                <small>{date}</small>
+                <small className={utilStyles.lightText}>
+                  <Date dateString={date} />
+                </small>
               </li>
             ))}
           </ul>
-        </section>
+          </section>
 
       </div>
     </Layout>
